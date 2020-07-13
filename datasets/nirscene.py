@@ -1,7 +1,8 @@
 import os
 import random
 import PIL.Image as Image
-from scipy.misc import imread, imsave
+from matplotlib.pyplot import imread
+from cv2 import imwrite as imsave
 
 
 from gauss_noise import add_gaussian_noise
@@ -18,7 +19,7 @@ def load_flist(path):
     flist = []
     for parentname, _, filelist in walk:
         flist += [os.path.join(parentname, fn) for fn in filelist if is_image(fn)]
-    
+
     flist.sort()
     return flist
 
@@ -89,6 +90,6 @@ def resave(ori_path, tgt_path):
 
 
 if __name__ == "__main__":
-    resave("/data/pzq/RGB-NIR/nirscene1", "/data/pzq/RGB-NIR/tiff2png")
+    resave("./data/RGB-NIR/nirscene1", "./data/RGB-NIR/tiff2png")
 
 

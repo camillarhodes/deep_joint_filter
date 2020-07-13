@@ -6,7 +6,9 @@ import torchvision.transforms.functional as F
 import PIL.Image as Image
 import numpy as np
 from torch.utils.data import DataLoader
-from scipy.misc import imread, imresize
+#from scipy.misc import imread, imresize
+from matplotlib.pyplot import imread
+from cv2 import resize
 
 from .utils import load_flist
 
@@ -86,10 +88,10 @@ class Dataset(torch.utils.data.Dataset):
         tensor_target = self.to_tensor(img_target)
         tensor_guide = self.to_tensor(img_guide)
         tensor_gt = self.to_tensor(img_gt)
-        
+
         return tensor_target, tensor_guide, tensor_gt
 
-    
+
     def check_channels(self, img):
         if img.ndim == 2:
             img = np.stack([img, img, img], axis=2)
@@ -97,7 +99,9 @@ class Dataset(torch.utils.data.Dataset):
 
 
     def resize(self, img):
-        return imresize(img, size=self.input_size)
+        import ipdb; ipdb.set_trace()
+        resize(img, dsize=self.input_size)
+        #return imresize(img, size=self.input_size)
 
 
     def random_crop(self, img_target, img_guide, img_gt):
@@ -194,10 +198,10 @@ class InferenceDataset(torch.utils.data.Dataset):
         # to_tensor
         tensor_target = self.to_tensor(img_target)
         tensor_guide = self.to_tensor(img_guide)
-        
+
         return tensor_target, tensor_guide
 
-    
+
     def check_channels(self, img):
         if img.ndim == 2:
             img = np.stack([img, img, img], axis=2)
@@ -246,17 +250,17 @@ class InferenceDataset(torch.utils.data.Dataset):
 
             for item in sample_loader:
                 yield item
-    
 
- 
+
+
 def add_gaussian_noise(image_in, noise_sigma=25):
     # image_in [0, 255]
     temp_image = np.float64(np.copy(image_in))
- 
+
     h = temp_image.shape[0]
     w = temp_image.shape[1]
     noise = np.random.randn(h, w) * noise_sigma
- 
+
     noisy_image = np.zeros(temp_image.shape, np.float64)
     if len(temp_image.shape) == 2:
         noisy_image = temp_image + noise

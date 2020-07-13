@@ -17,8 +17,8 @@ if __name__ == "__main__":
     args = parse_args()
     config = YamlParser(config_file=args.config_file)
 
+    import ipdb; ipdb.set_trace()
     djf  = DeepJointFilter(config)
     djf.load()
     djf.train()
 
-    import ipdb; ipdb.set_trace()

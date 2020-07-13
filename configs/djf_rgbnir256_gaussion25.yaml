@@ -56,19 +56,19 @@ dataset:
   noise_sigma: 25
 
   train:
-    target: /data/pzq/RGB-NIR/tiff2png/train/noise/
-    guide: /data/pzq/RGB-NIR/tiff2png/train/nir/
-    gt: /data/pzq/RGB-NIR/tiff2png/train/rgb/
+    target: ./data/RGB-NIR/tiff2png/train/noise/
+    guide: ./data/RGB-NIR/tiff2png/train/nir/
+    gt: ./data/RGB-NIR/tiff2png/train/rgb/
 
   val:
-    target: /data/pzq/RGB-NIR/tiff2png/test/noise/
-    guide: /data/pzq/RGB-NIR/tiff2png/test/nir/
-    gt: /data/pzq/RGB-NIR/tiff2png/test/rgb/
+    target: ./data/RGB-NIR/tiff2png/test/noise/
+    guide: ./data/RGB-NIR/tiff2png/test/nir/
+    gt: ./data/RGB-NIR/tiff2png/test/rgb/
 
   test:
-    target: /data/pzq/RGB-NIR/tiff2png/test/noise/
-    guide: /data/pzq/RGB-NIR/tiff2png/test/nir/
-    gt: /data/pzq/RGB-NIR/tiff2png/test/rgb/
+    target: ./data/RGB-NIR/tiff2png/test/noise/
+    guide: ./data/RGB-NIR/tiff2png/test/nir/
+    gt: ./data/RGB-NIR/tiff2png/test/rgb/
 
 
 device: cuda
