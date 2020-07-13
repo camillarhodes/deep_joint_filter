@@ -99,8 +99,7 @@ class Dataset(torch.utils.data.Dataset):
 
 
     def resize(self, img):
-        import ipdb; ipdb.set_trace()
-        resize(img, dsize=self.input_size)
+        return resize(img, dsize=tuple(self.input_size))
         #return imresize(img, size=self.input_size)
 
 
@@ -125,7 +124,7 @@ class Dataset(torch.utils.data.Dataset):
 
 
     def to_tensor(self, img):
-        img = Image.fromarray(img)
+        img = Image.fromarray(img, mode='RGB' if len(img.shape) > 2 else None)
         img_t = F.to_tensor(img).float()  # scale of [0, 1]
 
         return img_t
@@ -233,7 +232,7 @@ class InferenceDataset(torch.utils.data.Dataset):
 
 
     def to_tensor(self, img):
-        img = Image.fromarray(img)
+        img = Image.fromarray(img, mode='RGB' if len(img.shape) > 2 else None)
         img_t = F.to_tensor(img).float()  # scale of [0, 1]
 
         return img_t

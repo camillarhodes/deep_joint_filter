@@ -56,19 +56,19 @@ dataset:
   noise_sigma: 25
 
   train:
-    target: ./data/RGB-NIR/tiff2png/train/noise/
-    guide: ./data/RGB-NIR/tiff2png/train/nir/
-    gt: ./data/RGB-NIR/tiff2png/train/rgb/
+    target: ./data/RGB-NIR/tiff2png/train/nir/
+    guide: ./data/RGB-NIR/tiff2png/train/rgb/
+    gt: ./data/RGB-NIR/tiff2png/train/nir/
 
   val:
-    target: ./data/RGB-NIR/tiff2png/test/noise/
-    guide: ./data/RGB-NIR/tiff2png/test/nir/
-    gt: ./data/RGB-NIR/tiff2png/test/rgb/
+    target: ./data/RGB-NIR/tiff2png/train/nir/
+    guide: ./data/RGB-NIR/tiff2png/test/rgb/
+    gt: ./data/RGB-NIR/tiff2png/test/nir/
 
   test:
-    target: ./data/RGB-NIR/tiff2png/test/noise/
-    guide: ./data/RGB-NIR/tiff2png/test/nir/
-    gt: ./data/RGB-NIR/tiff2png/test/rgb/
+    target: ./data/RGB-NIR/tiff2png/test/nir/
+    guide: ./data/RGB-NIR/tiff2png/test/rgb/
+    gt: ./data/RGB-NIR/tiff2png/test/nir/
 
 
 device: cuda
@@ -76,7 +76,8 @@ device: cuda
 
 trainer:
   batch_size: 16
-  max_iters: 1e5
+  #max_iters: 1e5
+  max_iters: 2e3
   lr: 1e-4
   beta1: 0.9
   beta2: 0.999
@@ -92,10 +93,10 @@ verbose: True
 html: True
 seed: 7
 log_interval: 100
-eval_interval: 1000
-test_interval: 1000
-sample_interval: 1000
-save_interval: 1000
+eval_interval: 100
+test_interval: 100
+sample_interval: 100
+save_interval: 100
 save_path: outputs
 ckpt_path: checkpoints
 samples_path: samples

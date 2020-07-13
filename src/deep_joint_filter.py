@@ -83,7 +83,6 @@ class DeepJointFilter(object):
 
                 self.model.backward(loss)
 
-                # import ipdb; ipdb.set_trace()
                 # metrics
                 psnr = self.psnr(gt, output)
                 mae = (torch.sum(torch.abs(gt - target)) / torch.sum(gt)).float()
