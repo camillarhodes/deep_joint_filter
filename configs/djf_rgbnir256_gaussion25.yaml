@@ -62,7 +62,7 @@ dataset:
     gt: ./data/RGB-NIR/tiff2png/train/nir/
 
   val:
-    target: ./data/RGB-NIR/tiff2png/train/nir/
+    target: ./data/RGB-NIR/tiff2png/test/nir/
     guide: ./data/RGB-NIR/tiff2png/test/rgb/
     gt: ./data/RGB-NIR/tiff2png/test/nir/
 
