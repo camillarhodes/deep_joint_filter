@@ -36,7 +36,7 @@ loss:
 
 dataset:
   name: "RGB-NIR"
-  input_size: [340, 512]
+  input_size: [512, 340]
   scale_factor: 4.0
   # train:
   #   target: /data/zf/gan/yxf/new_data/gauss50/noise/
