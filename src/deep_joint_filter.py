@@ -133,7 +133,7 @@ class DeepJointFilter(object):
         print('\nstart testing...\n')
         self.test()
         print('\nend testing...\n')
-        
+
         print('\nEnd training....')
 
 
@@ -247,7 +247,7 @@ class DeepJointFilter(object):
 
 
     def inference(self, target_folder, guide_folder, output_folder):
-        inference_dataset = InferenceDataset(target_folder, guide_folder)
+        inference_dataset = InferenceDataset(self.config, target_folder, guide_folder)
         inference_dataloader = DataLoader(inference_dataset, batch_size=1, shuffle=False)
 
         self.model.eval()

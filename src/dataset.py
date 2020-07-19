@@ -27,6 +27,7 @@ class Dataset(torch.utils.data.Dataset):
         self.total = len(self.flist_target)
 
         self.input_size = config.dataset.input_size
+        self.scale_factor = config.dataset.scale_factor
 
 
     def __len__(self):
@@ -76,6 +77,7 @@ class Dataset(torch.utils.data.Dataset):
             img_target, img_guide, img_gt = self.center_crop(img_target, img_guide, img_gt)
 
         # resize
+        img_target = self.resize(img_target, downscale=True)
         img_target = self.resize(img_target)
         img_guide = self.resize(img_guide)
         img_gt = self.resize(img_gt)
@@ -98,8 +100,12 @@ class Dataset(torch.utils.data.Dataset):
         return img
 
 
-    def resize(self, img):
-        return resize(img, dsize=tuple(self.input_size))
+    def resize(self, img, downscale=False):
+        if downscale:
+            target_size = tuple(self.input_size / self.scale_factor)
+        else:
+            target_size = tuple(self.input_size)
+        return resize(img, dsize=target_size)
         #return imresize(img, size=self.input_size)
 
 
@@ -144,8 +150,10 @@ class Dataset(torch.utils.data.Dataset):
 
 
 class InferenceDataset(torch.utils.data.Dataset):
-    def __init__(self, target_folder, guide_folder):
+    def __init__(self, config, target_folder, guide_folder):
         super(InferenceDataset, self).__init__()
+
+        self.config = config
 
         assert os.path.isdir(target_folder) and os.path.isdir(guide_folder)
 
@@ -154,6 +162,8 @@ class InferenceDataset(torch.utils.data.Dataset):
         assert len(self.flist_target) == len(self.flist_guide)
         self.total = len(self.flist_target)
 
+        self.input_size = config.dataset.input_size
+        self.scale_factor = config.dataset.scale_factor
 
 
     def __len__(self):
@@ -193,6 +203,11 @@ class InferenceDataset(torch.utils.data.Dataset):
         img_target = self.check_channels(img_target)
         img_guide = self.check_channels(img_guide)
 
+        # resize
+        img_target = self.resize(img_target, downscale=True)
+        img_target = self.resize(img_target)
+        img_guide = self.resize(img_guide)
+
 
         # to_tensor
         tensor_target = self.to_tensor(img_target)
@@ -207,9 +222,13 @@ class InferenceDataset(torch.utils.data.Dataset):
         return img
 
 
-    def resize(self, img):
-        return imresize(img, size=self.input_size)
-
+    def resize(self, img, downscale=False):
+        if downscale:
+            target_size = tuple(self.input_size / self.scale_factor)
+        else:
+            target_size = tuple(self.input_size)
+        return resize(img, dsize=target_size)
+        #return imresize(img, size=self.input_size)
 
     def random_crop(self, img_target, img_guide, img_gt):
         h, w, _ = img_target.shape
