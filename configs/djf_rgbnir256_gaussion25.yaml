@@ -76,7 +76,8 @@ device: cuda
 
 
 trainer:
-  batch_size: 16
+  #batch_size: 16
+  batch_size: 15
   #max_iters: 1e5
   max_iters: 2e3
   lr: 1e-4
