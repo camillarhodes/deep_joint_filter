@@ -102,9 +102,9 @@ class Dataset(torch.utils.data.Dataset):
 
     def resize(self, img, downscale=False):
         if downscale:
-            target_size = tuple(self.input_size / self.scale_factor)
+            target_size = tuple(np.array(self.input_size) / self.scale_factor)
         else:
-            target_size = tuple(self.input_size)
+            target_size = tuple(np.array(self.input_size))
         return resize(img, dsize=target_size)
         #return imresize(img, size=self.input_size)
 
@@ -224,9 +224,9 @@ class InferenceDataset(torch.utils.data.Dataset):
 
     def resize(self, img, downscale=False):
         if downscale:
-            target_size = tuple(self.input_size / self.scale_factor)
+            target_size = tuple(np.array(self.input_size) / self.scale_factor)
         else:
-            target_size = tuple(self.input_size)
+            target_size = tuple(np.array(self.input_size))
         return resize(img, dsize=target_size)
         #return imresize(img, size=self.input_size)
 
